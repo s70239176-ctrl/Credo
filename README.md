@@ -7,9 +7,6 @@ independently judge that identity's standing from public evidence against a lend
 contracts read a deterministic quote: how much collateral to demand and what rate discount is earned. It holds no
 funds, has no admin key, and ships no frontend.
 
-> Official GenLayer idea: *Under-collateralized Lending. Enable lending with less collateral by linking real-world
-> identity to on-chain reputation, allowing borrowers to leverage their good standing for better loan terms.*
-
 ## Canonical deployment (Studionet)
 
 | | |
