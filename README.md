@@ -27,7 +27,7 @@ Details and the live transaction table: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
 
 | Gate | Result |
 |---|---|
-| Direct Mode (`tests/direct`) | **202 passed**, 0 failed (pickling checks on) |
+| Direct Mode (`tests/direct`) | **201 passed**, 0 failed (pickling checks on) |
 | Mutation check of the security-critical rules | 13 of 13 deliberate breakages caught by the suite |
 | `genvm-lint lint` (0.11.0) | passed (3 checks) |
 | `genvm-lint check` | passed, 15 methods (8 view, 7 write) |

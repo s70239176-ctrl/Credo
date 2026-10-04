@@ -13,7 +13,7 @@
 
 ## Portal description (753 characters)
 
-Credo is a standalone GenLayer Intelligent Contract for under-collateralized lending. A borrower proves control of a public identity page; validators independently judge public evidence against a lender's immutable policy and must reproduce each claim with a verbatim quote from their own fetch. Deterministic code then derives tiers, freshness, repayment-history lift and default lockout, and exposes quote()/meets() so lenders demand less collateral without trusting one KYC provider. No funds, no frontend. Verified: 202 Direct Mode tests incl. forged-leader cases, GenVM lint and SDK validation, 4 live Studionet integration tests, and a canonical Studionet deployment (0x70189B81E0Bd90ba29AaBBbB1fdA11380D599592) whose full flow was exercised live.
+Credo is a standalone GenLayer Intelligent Contract for under-collateralized lending. A borrower proves control of a public identity page; validators independently judge public evidence against a lender's immutable policy and must reproduce each claim with a verbatim quote from their own fetch. Deterministic code then derives tiers, freshness, repayment-history lift and default lockout, and exposes quote()/meets() so lenders demand less collateral without trusting one KYC provider. No funds, no frontend. Verified: 201 Direct Mode tests incl. forged-leader cases, GenVM lint and SDK validation, 4 live Studionet integration tests, and a canonical Studionet deployment (0x70189B81E0Bd90ba29AaBBbB1fdA11380D599592) whose full flow was exercised live.
 
 ## Why GenLayer is required
 
@@ -46,7 +46,7 @@ A pool, a credit line and a treasury can use them unchanged. See [docs/INTEGRATI
 
 ## Test results
 
-* Direct Mode: 202 passed (pickling checks on), including 56 forged-leader and malformed-proposal tests.
+* Direct Mode: 201 passed (pickling checks on), including 62 forged-leader and malformed-proposal tests.
 * Mutation check: 13 of 13 deliberate breakages of security-critical rules caught.
 * `genvm-lint` 0.11.0: lint passed, SDK `check` passed (15 methods).
 * Studionet integration: 4 passed (real consensus, disposable deployments).

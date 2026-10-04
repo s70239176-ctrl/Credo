@@ -76,7 +76,7 @@ Two earlier attempts failed and are reported here for honesty:
 
 ## Local gates
 
-Direct Mode 202 passed (with `check_pickling` on); a 13-mutant mutation check was caught 13/13; `genvm-lint lint`
+Direct Mode 201 passed (with `check_pickling` on); a 13-mutant mutation check was caught 13/13; `genvm-lint lint`
 passed; `genvm-lint check` passed (exit 0, 15 methods). `check` also reports that a newer GenVM runner exists than the
 one pinned in the contract header; the pin was not changed.
 
@@ -87,7 +87,7 @@ dependency files (genlayer-test 0.29.2, genlayer-py 0.16.3, genvm-linter 0.11.0,
 
 | Gate | Result |
 |---|---|
-| Direct Mode | 202 passed |
+| Direct Mode | 202 passed at `af80f37`. A redundant temporary smoke test was removed afterwards; the suite is now 201 passed (139 + 62), same contract. |
 | `genvm-lint lint` / `check` / `check --json` | passed / passed / exit 0 (15 methods) |
 | Deployed code vs `contracts/credo.py` | MATCH (41,270 bytes) |
 | `tests/integration` (disposable contracts) | 4 passed in 13m44s |
