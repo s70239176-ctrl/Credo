@@ -12,3 +12,4 @@ build/
 coverage/
 .DS_Store
 *.log
+.binding_lost_state.json
