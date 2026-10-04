@@ -1,0 +1,14 @@
+.venv/
+.venv-*/
+__pycache__/
+.pytest_cache/
+*.pyc
+.env
+.env.*
+!.env.example
+artifacts/
+dist/
+build/
+coverage/
+.DS_Store
+*.log
