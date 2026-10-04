@@ -78,3 +78,21 @@ Two earlier attempts failed and are reported here for honesty:
 Direct Mode 202 passed (with `check_pickling` on); a 13-mutant mutation check was caught 13/13; `genvm-lint lint`
 passed; `genvm-lint check` passed (exit 0, 15 methods). `check` also reports that a newer GenVM runner exists than the
 one pinned in the contract header; the pin was not changed.
+
+## Clean-clone reproduction (2026-10-04)
+
+Everything was re-run from a fresh clone of `origin/main` at `af80f37`, with new virtualenvs built only from the committed
+dependency files (genlayer-test 0.29.2, genlayer-py 0.16.3, genvm-linter 0.11.0, Python 3.14.3):
+
+| Gate | Result |
+|---|---|
+| Direct Mode | 202 passed |
+| `genvm-lint lint` / `check` / `check --json` | passed / passed / exit 0 (15 methods) |
+| Deployed code vs `contracts/credo.py` | MATCH (41,270 bytes) |
+| `tests/integration` (disposable contracts) | 4 passed in 13m44s |
+| `tests/evidence` (canonical contract) | 1 passed in 8m48s; 9 transactions ACCEPTED / MAJORITY_AGREE |
+
+The second canonical run created **policy 3** on the canonical contract and reproduced the same outcomes as the first:
+guestbook binding stays PENDING, owner page VERIFIED, injection page tier 0, genuine evidence tier 2 at 8000 bps, history
+lift to 5000 bps, default BLOCKED at 15000 bps, revoke UNBOUND. Its transaction hashes are in that run's console output
+and are not duplicated here; the first run's hashes above are the cited evidence.
