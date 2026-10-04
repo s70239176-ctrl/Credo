@@ -56,11 +56,11 @@ A pool, a credit line and a treasury can use them unchanged. See [docs/INTEGRATI
 Canonical flow against the contract above (all 9 transactions ACCEPTED / MAJORITY_AGREE): a stranger's challenge in a
 guestbook was refused; an owner-controlled page verified; a prompt-injection page earned tier 0; genuine evidence earned
 tier 2 and a quote of 8000 bps against a 15000 bps base; two repayments lifted it to 5000 bps; a default blocked the
-borrower; revoking the binding dropped all standing. Transaction table: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
+borrower; revoking the binding dropped all standing. All 29 transactions on the canonical contract read back FINALIZED. A separate live check removed the proof from an identity page and the binding moved to LOST. Transaction table: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ## Limitations
 
-Not government KYC; approximate registrable-domain independence; `require_backlink` proven in Direct Mode only; model
+Not government KYC; approximate registrable-domain independence; `require_backlink` and stale-expiry proven in Direct Mode only; model
 variance can yield `UNDETERMINED`; Studionet is a development network. Full list: README and
 [docs/SECURITY.md](docs/SECURITY.md).
 

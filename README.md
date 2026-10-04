@@ -32,7 +32,8 @@ Details and the live transaction table: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
 | `genvm-lint lint` (0.11.0) | passed (3 checks) |
 | `genvm-lint check` | passed, 15 methods (8 view, 7 write) |
 | Studionet integration (`tests/integration`) | **4 passed**, real consensus, disposable deployments |
-| Canonical live flow (`tests/evidence`) | passed against the canonical contract; all 9 recorded transactions `ACCEPTED` / `MAJORITY_AGREE` |
+| Canonical live flow (`tests/evidence`) | passed against the canonical contract; 9 recorded transactions `ACCEPTED` / `MAJORITY_AGREE`, and all 29 transactions on the contract later read back as `FINALIZED` |
+| Live `BINDING_LOST` (`tests/evidence/test_binding_lost_live.py`) | passed in two phases: proof removed from the page, binding went `LOST`, quote `UNBOUND` |
 
 Environment: Python 3.14.3, genlayer-test 0.29.2, genlayer-py 0.16.3, GenVM SDK v0.2.16.
 Two host-only test plugins are used on this Windows machine and are not part of the contract; see
@@ -122,15 +123,15 @@ collateral. Worked example and the policy format: [docs/INTEGRATION.md](docs/INT
 * A borrower who controls a page named after a famous person can claim that name. `require_backlink: true` defeats
   the straightforward attack by requiring evidence pages to link to the bound page; a policy that sets it to `false`
   accepts the risk. The live tests use `false` (the identity page is generated at run time), so the backlink rule is
-  proven in Direct Mode only.
+  proven in Direct Mode only. Stale-attestation expiry is also proven in Direct Mode only (1-hour minimum TTL).
 * Registrable-domain independence is approximate (built-in list of second-level suffixes). Pages are truncated to
   8,000 characters after tag stripping. Honest validators can disagree on borderline pages; the result is an
   `UNDETERMINED` transaction, and the borrower retries after the cooldown.
 * Reporters can lie about their own policy's loans; the blast radius is bounded by the policy and by the consumer
   pinning the policy hash.
 * The example consumer in the docs passes `genvm-lint` but has not been executed on a network.
-* Studionet is a development network, and this is not a production audit. The canonical transactions were observed
-  `ACCEPTED`; only the deployment transaction was observed `FINALIZED`.
+* Studionet is a development network, and this is not a production audit. The canonical transactions were first
+  observed `ACCEPTED`, and a later read showed all of them `FINALIZED`.
 
 ## Repository layout
 

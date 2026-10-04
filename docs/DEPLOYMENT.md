@@ -26,7 +26,8 @@ Produced by `tests/evidence/test_canonical_evidence.py` against the address abov
 the public fixtures in `fixtures/evidence/` served via jsDelivr pinned to commit
 `83ceb07971c155cf43eb32b8e34b6ea93ef0c2d2`; the identity page is generated per run as a stateless
 `httpbin.org/base64/...` page carrying the borrower's challenge. Every transaction below reported status
-**ACCEPTED** and result **MAJORITY_AGREE**. Their later finalization was not re-checked.
+**ACCEPTED** and result **MAJORITY_AGREE** when recorded. A later read of the chain showed **all 29 transactions on
+the canonical contract FINALIZED**, including every hash cited in this table.
 
 | Scenario | Action | Tx | Stored result |
 |---|---|---|---|
@@ -43,9 +44,9 @@ the public fixtures in `fixtures/evidence/` served via jsDelivr pinned to commit
 Two things were asserted by reading state, not just receipts: every setup write was followed by a state read, and the
 `meets(...)` gate returned true for the 8000 bps quote under the pinned policy hash.
 
-Not covered live: `require_backlink` (the generated identity page cannot be linked from a committed fixture; covered
-in Direct Mode), `BINDING_LOST`, and the stale/expiry path (a 1-hour minimum TTL makes it impractical to wait for;
-covered in Direct Mode).
+Covered live separately (next section): `BINDING_LOST`. Not covered live: `require_backlink` (the generated identity page
+cannot be linked from a committed fixture; covered in Direct Mode) and the stale/expiry path (a 1-hour minimum TTL makes
+it impractical to wait for; covered in Direct Mode).
 
 ### State left on the canonical contract
 
@@ -96,3 +97,18 @@ The second canonical run created **policy 3** on the canonical contract and repr
 guestbook binding stays PENDING, owner page VERIFIED, injection page tier 0, genuine evidence tier 2 at 8000 bps, history
 lift to 5000 bps, default BLOCKED at 15000 bps, revoke UNBOUND. Its transaction hashes are in that run's console output
 and are not duplicated here; the first run's hashes above are the cited evidence.
+
+## Live BINDING_LOST check (disposable contract, two phases)
+
+`tests/evidence/test_binding_lost_live.py`. Needs an identity page whose proof disappears after verification, so it uses
+the committed fixture `fixtures/identity/lost-check.md` and a fixed throwaway borrower
+`0x2E1285f2a0F895429ea49e12e0E51c1AC3328CF4` (key only in the gitignored `.env.credo-test`, never printed). Contract:
+`0x7C88218a09a04Ce953F31AA866B4c02CF95AB50D` (disposable, not canonical).
+
+| Phase | What happened | Result |
+|---|---|---|
+| A (commit `2405c3e`, proof on the page) | bind, verify, assess the registry fixture | binding VERIFIED, quote `OK` at **8000 bps** (1 passed, 2m46s) |
+| page change (commit `c223d16`) | the challenge line was removed and the raw URL was polled until it served the new text | page no longer carries the proof |
+| B (proof gone) | assess again, tx `0x8a8843f617596dab1922c5ff7a1c4d4ba2b3578bc39b004076bf43934973b948` (ACCEPTED / MAJORITY_AGREE, later FINALIZED) | binding **LOST**, quote `UNBOUND` at 15000 bps, `reduced = false`; another address could then begin binding the released page (1 passed, 4m44s) |
+
+Note the fixture at `main` now shows the phase-B text, so re-running phase A needs the proof line restored first.
